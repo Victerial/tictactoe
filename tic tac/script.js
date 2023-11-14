@@ -1,6 +1,17 @@
 let currentPlayer = 'X';
 let cells = document.querySelectorAll('.cell');
 
+function showAlert(message) {
+    const popup = document.createElement('div');
+    popup.className = 'popup';
+    popup.innerHTML = `<p>${message}</p>`;
+    document.body.appendChild(popup);
+
+    setTimeout(() => {
+        popup.remove();
+    }, 2000); 
+}
+
 function checkWinner() {
     const lines = [
         [0, 1, 2],
@@ -34,15 +45,15 @@ function handleClick(event) {
         const winner = checkWinner();
         if (winner) {
             if (winner === 'Draw') {
-                alert('Döntetlen!');
+                showAlert('Döntetlen!');
             } else {
-                alert(`A(z) ${winner} nyert!`);
+                showAlert(`A(z) ${winner} nyert!`);
             }
             cells.forEach(cell => cell.removeEventListener('click', handleClick));
         } else {
             currentPlayer = (currentPlayer === 'X') ? 'O' : 'X';
             if (currentPlayer === 'O') {
-                setTimeout(computerMove, 500); // Számítógép lépése
+                setTimeout(computerMove, 500); 
             }
         }
     }
